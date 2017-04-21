@@ -1,0 +1,26 @@
+apply plugin: 'groovy'
+
+repositories {
+    mavenLocal()
+	maven {
+        url "http://eda-prod-hud03.uk.experian.local:8081/artifactory/repo"
+    }
+	mavenCentral()
+}
+
+dependencies {
+	compile "org.codehaus.groovy:groovy-all:2.0.5"
+	compile "net.sf.opencsv:opencsv:2.0"
+	compile "org.seleniumhq.selenium:selenium-server:2.33.0"
+	compile "org.codehaus.groovy.modules.http-builder:http-builder:0.7.1"
+}
+
+task bz (dependsOn: 'classes', type: JavaExec) {
+    main = 'Bz'
+    classpath = sourceSets.main.runtimeClasspath	
+	systemProperties System.getProperties()
+}
+
+
+defaultTasks 'bz'
+
